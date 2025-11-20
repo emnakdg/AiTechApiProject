@@ -1,9 +1,14 @@
+using AiTech.Business.Extensions;
 using AiTech.DataAccess.Context;
+using AiTech.DataAccess.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDataAccessServices();
+builder.Services.AddBusinessServices();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

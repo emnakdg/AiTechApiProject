@@ -1,0 +1,33 @@
+﻿using AiTech.Business.Services.CategoryServices;
+using AiTech.DTO.CategoryDtos;
+using Microsoft.AspNetCore.Mvc;
+
+namespace AiTech.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CategoriesController(ICategoryService _categoryService) : ControllerBase
+    {
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var categories = await _categoryService.TGetAllAsync();
+            return Ok(categories);
+        }
+
+        //localhost:7000/api/categories/3
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var category = await _categoryService.TGetByIdAsync(id);
+            return Ok(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateCategoryDto categoryDto)
+        {
+            await _categoryService.TCreateAsync(categoryDto);
+            return Ok("Kategori Oluşturuldu");
+        }
+    }
+}
